@@ -33,6 +33,16 @@ jobs:
       run: pak::pkg_install("MASS")
       shell: Rscript {0}
       
+    - name: Try to mimic action
+      run: |
+        dir.create(".github", showWarnings=FALSE)
+        Sys.setenv("PKGCACHE_HTTP_VERSION" = "2")
+        pak::lockfile_create(
+          c("MASS", "nnet")
+          lockfile = ".github/pkg.lock"
+        )
+      shell: Rscript {0}  
+      
     - uses: r-lib/actions/setup-r-dependencies@v2
       with:
         cache-version: 1
