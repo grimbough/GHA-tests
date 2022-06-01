@@ -1,0 +1,12 @@
+Package: Dummy
+Title: Dummy Package
+Description: Dummy package
+Version: 0.0.1
+Authors@R: c(
+        person("Mike", "Smith", role = "ctb",
+            comment = c(ORCID = "0000-0002-7800-3848")
+        )
+Imports: MASS
+License: Artistic-2.0
+Encoding: UTF-8
+RoxygenNote: 6.1.0
