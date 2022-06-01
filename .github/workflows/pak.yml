@@ -22,7 +22,7 @@ jobs:
     
     - name: Set R options    
       run: |
-        echo "options(timeout = 600)" > $HOME/.Rprofile
+        echo "options(timeout = 600)" >> $HOME/.Rprofile
         echo "options(BioC_mirror = 'https://packagemanager.rstudio.com/bioconductor')" >> $HOME/.Rprofile
     
     - name: Install pack
