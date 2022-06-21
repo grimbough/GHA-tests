@@ -43,14 +43,14 @@ jobs:
     name: Delete
     needs: consume-artifacts
     runs-on: ubuntu-20.04
+    container:
+      image: bioconductor/bioconductor_docker:RELEASE_3_15
     steps:
-    - name: Personal library location
-      run: |
-        mkdir -p ${HOME}/R-lib
-        echo "R_LIBS_USER=~/R-lib" >> ${HOME}/.Renviron
-        
     - name: Install R packages
       run: |
-        install.packages('remotes')
-        remotes::install_github('grimbough/GitHubAPI')
+        BiocManager::install('grimbough/GitHubAPI')
       shell: Rscript {0}
+      
+    - name: List artifacts
+      run: |
+        Rscript -e "GitHubAPI::listArtifacts(owner = ${GITHUB_REPOSITORY_OWNER}, repo = basename(${GITHUB_REPOSITORY}), run_id = ${GITHUB_RUN_ID})
