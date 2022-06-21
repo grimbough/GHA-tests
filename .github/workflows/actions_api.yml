@@ -41,6 +41,11 @@ jobs:
     needs: consume-artifacts
     runs-on: ubuntu-20.04
     steps:
+    - name: Personal library location
+      run: |
+        mkdir -p ${HOME}/R-lib
+        echo "R_LIBS_USER=~/R-lib" >> ${HOME}/.Renviron
+        
     - name: Install R packages
       run: |
         install.packages('remotes')
