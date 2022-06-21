@@ -17,7 +17,9 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: text-files
-        
+        path: |
+          file*.txt
+          
   consume-artifacts:
     name: Consume
     needs: create-artifacts
