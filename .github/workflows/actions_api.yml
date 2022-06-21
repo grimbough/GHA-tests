@@ -1,0 +1,46 @@
+on: 
+  workflow_dispatch:
+
+name: Testing GitHubAPI package
+
+jobs:
+  create-artifacts:
+    name: Create
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Create files
+      run: |
+        echo "This is file 1" > file1.txt
+        echo "I am file 2" > file2.txt
+        
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with:
+        name: text-files
+        
+  consume-artifacts:
+    name: Consume
+    needs: create-artifacts
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: text-files
+        
+    - name: Print contents
+      run: |
+        echo "File 1:"
+        cat file1.txt
+        echo "File 2:"
+        cat file2.txt
+    
+  delete-artifacts:
+    name: Delete
+    needs: consume-artifacts
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Install R packages
+      run: |
+        install.packages('remotes')
+        remotes::install_github('grimbough/GitHubAPI')
+      shell: Rscript {0}
